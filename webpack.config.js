@@ -11,7 +11,7 @@ const DEV = process.env.NODE_ENV !== 'production';
 let config = {
   context: path.resolve(__dirname, 'src'),
   entry: {
-    index: ['./index.js']
+    index: ['./index.tsx']
   },
   output: {
     path: path.join(__dirname, 'public'),
@@ -48,8 +48,16 @@ let config = {
       {
         test: /\.(jpe?g|png|gif|eot|woff|woff2|svg|ttf)([\?]?.*)$/i,
         use: DEV ? ['url-loader'] : ['file-loader']
-      }
+      },
+      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
+  },
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".ts", ".tsx", ".js", ".json"]
   },
   plugins: [
     new HtmlWebpackPlugin({

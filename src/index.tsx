@@ -1,9 +1,13 @@
 /* eslint-disable */
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './router';
 import createStore from './store';
+
+declare global {
+  interface Window { __REDUX_DEVTOOLS_EXTENSION__: any; }
+}
 
 const store = createStore(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
